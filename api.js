@@ -29,8 +29,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// const PORT = process.env.PORT || 3300
-const PORT = 3002;
+const PORT = process.env.PORT || 3300
+// const PORT = 3002;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
 })
