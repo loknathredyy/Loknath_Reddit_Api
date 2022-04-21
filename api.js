@@ -112,21 +112,21 @@ app.get("/users/:user_id/users_posts/:post_id", (req, res) => {
   )
 })
 
-// app.get("/places/:place_id", (req, res) => {
-//   client.query(
-//     `SELECT * FROM tourist_places WHERE place_id = ${req.params.place_id}`,
-//     (err, result) => {
-//       if (err) {
-//         console.log(err)
-//         res.sendStatus(500)
-//       } else if (result.rows.length === 0) {
-//         res.sendStatus(404)
-//       } else {
-//         res.send(result.rows)
-//       }
-//     }
-//   )
-// })
+app.get("/users_posts/:post_id", (req, res) => {
+  client.query(
+    `SELECT * FROM users_posts WHERE post_id = ${req.params.post_id}`,
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+      } else if (result.rows.length === 0) {
+        res.sendStatus(404)
+      } else {
+        res.send(result.rows)
+      }
+    }
+  )
+})
 
 app.post("/users/:user_id/users_posts", (req, res) => {
   client.query(
@@ -226,21 +226,21 @@ app.delete("/users/:user_id/users_posts/:post_id", (req, res) => {
   )
 })
 
-// app.delete("/places/:place_id", (req, res) => {
-//   client.query(
-//     `DELETE FROM tourist_places WHERE place_id = ${req.params.place_id}`,
-//     (err, result) => {
-//       if (err) {
-//         console.log(err)
-//         res.sendStatus(500)
-//       } else if (result.rowCount === 0) {
-//         res.sendStatus(404)
-//       } else {
-//         res.send("Deleted")
-//       }
-//     }
-//   )
-// })
+app.delete("/users_posts/:post_id", (req, res) => {
+  client.query(
+    `DELETE FROM users_posts WHERE post_id = ${req.params.post_id}`,
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+      } else if (result.rowCount === 0) {
+        res.sendStatus(404)
+      } else {
+        res.send("Deleted")
+      }
+    }
+  )
+})
 
 
 // POST COMMENT
@@ -259,6 +259,19 @@ app.post('/users_posts/:post_id/comments', (req, res) => {
     })
     client.end
 })
+
+// Get all comments
+
+  app.get("/comments", (req, res) => {
+    client.query("SELECT * FROM comments", (err, result) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+      } else {
+        res.send(result.rows)
+      }
+    })
+  })
 
 // GET A COMMENT
 app.get('/users_posts/:post_id/comments/', (req, res) => {
@@ -285,7 +298,20 @@ app.delete('/users_posts/:post_id/comments/:comment_id', (req, res) => {
             console.log(err)
             res.send(err.message)
         } else {
-            res.send('comment deleted successful!')
+            res.send('comment deleted successfully')
+        }
+    })
+    client.end
+})
+
+app.delete('/comments/:comment_id', (req, res) => {
+    client.query(
+        `DELETE FROM comments WHERE comment_id = ${req.params.comment_id}`, (err, result) => {
+        if (err) {
+            console.log(err)
+            res.send(err.message)
+        } else {
+            res.send('comment deleted successfully')
         }
     })
     client.end
