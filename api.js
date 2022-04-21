@@ -145,7 +145,7 @@ app.post("/users/:user_id/users_posts", (req, res) => {
 app.post("/users", (req, res) => {
   const { name, email_id, password } = req.body
   client.query(
-    `INSERT INTO users (name) VALUES ('${name}','${email_id}', '${password}')`,
+    `INSERT INTO users (name,email_id,password) VALUES ('${name}','${email_id}', '${password}')`,
     (err, result) => {
       if (err) {
         console.log(err)
