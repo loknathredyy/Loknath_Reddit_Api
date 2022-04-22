@@ -175,8 +175,8 @@ app.put("/users/:user_id", (req, res) => {
   )
 })
 app.get('/users/state/:state',(req,res)=>{
-  const {state} = req.params.state
-    client.query(`select * from users where state=${state}`,(err,result)=>{
+  // const {state} = req.params.state
+    client.query(`select * from users where state=0`,(err,result)=>{
         if(err){
             console.log(err)
             res.send(err)
