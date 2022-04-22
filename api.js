@@ -166,6 +166,7 @@ app.post("/users", (req, res) => {
   
   
   app.post("/auth_user",(req,res)=>{
+    const {user_id, user_email} = req.body;
     client.query(
       `INSERT INTO auth_user (user_id, user_email) VALUES ('${user_id}','${user_email}')`,
       (err,result)=>{
