@@ -184,7 +184,6 @@ app.get('/users/state/:state',(req,res)=>{
             res.send(result.rows)
         }
     })
-    client.end
 })
 
 app.put("/users/:user_id/user_posts/:post_id", (req, res) => {
