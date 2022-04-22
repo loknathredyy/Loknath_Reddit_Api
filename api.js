@@ -191,6 +191,23 @@ app.post("/users", (req, res) => {
     }
   })
 })
+
+app.put("/auth_user/:user_id", (req, res) => {
+  const { user_email } = req.body
+  client.query(
+    `UPDATE auth_user SET user_email = '${user_email}'  WHERE user_id = 1`,
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+      } else if (result.rowCount === 0) {
+        res.sendStatus(404)
+      } else {
+        res.send("Updated")
+      }
+    }
+  )
+})
   // authenicate user update 
 
   
