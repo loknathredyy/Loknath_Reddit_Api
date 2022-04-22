@@ -158,7 +158,7 @@ app.post("/users", (req, res) => {
 })
 
 app.put("/users/:user_id", (req, res) => {
-  const user_id = req.params.state_id
+  const user_id = req.params.user_id
   const { name,state } = req.body
   client.query(
     `UPDATE users SET name = '${name}', state = '${state}' WHERE user_id = ${user_id}`,
