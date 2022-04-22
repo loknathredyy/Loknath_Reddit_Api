@@ -180,6 +180,16 @@ app.post("/users", (req, res) => {
     )
   })
 
+  app.get("/auth_user", (req, res) => {
+  client.query("SELECT * FROM auth_user", (err, result) => {
+    if (err) {
+      console.log(err)
+      res.sendStatus(500)
+    } else {
+      res.send(result.rows)
+    }
+  })
+})
   // authenicate user update 
 
   
