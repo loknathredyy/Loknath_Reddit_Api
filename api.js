@@ -159,9 +159,9 @@ app.post("/users", (req, res) => {
 
 app.put("/users/:user_id", (req, res) => {
   const user_id = req.params.state_id
-  const { name } = req.body
+  const { name,state } = req.body
   client.query(
-    `UPDATE users SET name = '${name}' WHERE user_id = ${user_id}`,
+    `UPDATE users SET name = '${name}', state = '${state}' WHERE user_id = ${user_id}`,
     (err, result) => {
       if (err) {
         console.log(err)
@@ -173,6 +173,17 @@ app.put("/users/:user_id", (req, res) => {
       }
     }
   )
+})
+app.get('/users/state/:active',(req,res)=>{
+    client.query(`select * from users where state=${req.params.state}`,(err,result)=>{
+        if(err){
+            console.log(err)
+            res.send(err)
+        }else{
+            res.send(result.rows)
+        }
+    })
+    client.end
 })
 
 app.put("/users/:user_id/user_posts/:post_id", (req, res) => {
