@@ -174,8 +174,9 @@ app.put("/users/:user_id", (req, res) => {
     }
   )
 })
-app.get('/users/state/:active',(req,res)=>{
-    client.query(`select * from users where state=${req.params.state}`,(err,result)=>{
+app.get('/users/state/:state',(req,res)=>{
+  const {state} = req.params.state
+    client.query(`select * from users where state=${state}`,(err,result)=>{
         if(err){
             console.log(err)
             res.send(err)
