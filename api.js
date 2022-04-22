@@ -142,6 +142,10 @@ app.post("/users/:user_id/users_posts", (req, res) => {
   )
 })
 
+
+
+
+
 app.post("/users", (req, res) => {
   const { name, email_id, password } = req.body
   client.query(
@@ -154,8 +158,31 @@ app.post("/users", (req, res) => {
         res.sendStatus(201)
       }
     }
-  )
-})
+    )
+  })
+  
+  
+  //  authenticate user post
+  
+  
+  app.post("/auth_user",(req,res)=>{
+    client.query(
+      `INSERT INTO auth_user (user_id, user_email) VALUES ('${user_id}','${user_email}')`,
+      (err,result)=>{
+        if(err){
+
+          console.log(err)
+          res.sendStatus(500)
+        }else{
+          res.sendStatus(201)
+        }
+      }
+    )
+  })
+
+  // authenicate user update 
+
+  
 
 app.put("/users/:user_id", (req, res) => {
   const user_id = req.params.user_id
@@ -205,6 +232,9 @@ app.put("/users/:user_id/user_posts/:post_id", (req, res) => {
   )
 })
 
+
+
+
 app.delete("/users/:user_id", (req, res) => {
   const user_id = req.params.user_id
   client.query(`DELETE FROM users WHERE user_id = ${user_id}`, (err, result) => {
@@ -218,6 +248,7 @@ app.delete("/users/:user_id", (req, res) => {
     }
   })
 })
+
 
 app.delete("/users/:user_id/users_posts/:post_id", (req, res) => {
   const user_id = req.params.user_id
